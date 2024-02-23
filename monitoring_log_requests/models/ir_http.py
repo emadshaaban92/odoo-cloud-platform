@@ -58,6 +58,7 @@ class IrHttp(models.AbstractModel):
             "server_environment": config.get("running_env"),
             "model": None,
             "model_method": None,
+            "args": None,
             "domain": None,
             "fields": None,
             "limit": None,
@@ -80,6 +81,7 @@ class IrHttp(models.AbstractModel):
                 {
                     "model": request.params.get("model"),
                     "model_method": request.params.get("method"),
+                    "args": request.params.get("args"),
                     "domain": request.params.get("domain"),
                     "fields": request.params.get("fields"),
                     "limit": request.params.get("limit"),
