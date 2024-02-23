@@ -68,7 +68,7 @@ class IrHttp(models.AbstractModel):
             "response_status_code": None,
         }
         if hasattr(response, "status_code"):
-            info["status_code"] = response.status_code
+            info["response_status_code"] = response.status_code
         if hasattr(request, "session"):
             info.update(
                 {
@@ -81,7 +81,7 @@ class IrHttp(models.AbstractModel):
                 {
                     "model": request.params.get("model"),
                     "model_method": request.params.get("method"),
-                    "args": request.params.get("args"),
+                    "args": str(request.params.get("args"))[:50] if request.params.get("args") else None,
                     "domain": request.params.get("domain"),
                     "fields": request.params.get("fields"),
                     "limit": request.params.get("limit"),
