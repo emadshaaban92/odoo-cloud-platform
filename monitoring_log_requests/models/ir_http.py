@@ -58,6 +58,10 @@ class IrHttp(models.AbstractModel):
             "server_environment": config.get("running_env"),
             "model": None,
             "model_method": None,
+            "domain": None,
+            "fields": None,
+            "limit": None,
+            "sort": None,
             "workflow_signal": None,
             # response things
             "response_status_code": None,
@@ -76,9 +80,14 @@ class IrHttp(models.AbstractModel):
                 {
                     "model": request.params.get("model"),
                     "model_method": request.params.get("method"),
+                    "domain": request.params.get("domain"),
+                    "fields": request.params.get("fields"),
+                    "limit": request.params.get("limit"),
+                    "sort": request.params.get("sort"),
                     "workflow_signal": request.params.get("signal"),
                 }
             )
+            
         return info
 
     @classmethod
