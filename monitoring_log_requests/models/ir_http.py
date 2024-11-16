@@ -58,12 +58,17 @@ class IrHttp(models.AbstractModel):
             "server_environment": config.get("running_env"),
             "model": None,
             "model_method": None,
+            "args": None,
+            "domain": None,
+            "fields": None,
+            "limit": None,
+            "sort": None,
             "workflow_signal": None,
             # response things
             "response_status_code": None,
         }
-        if hasattr(request, "status_code"):
-            info["status_code"] = response.status_code
+        if hasattr(response, "status_code"):
+            info["response_status_code"] = response.status_code
         if hasattr(request, "session"):
             info.update(
                 {
@@ -76,6 +81,11 @@ class IrHttp(models.AbstractModel):
                 {
                     "model": request.params.get("model"),
                     "model_method": request.params.get("method"),
+                    "args": str(request.params.get("args"))[:50] if request.params.get("args") else None,
+                    "domain": request.params.get("domain"),
+                    "fields": request.params.get("fields"),
+                    "limit": request.params.get("limit"),
+                    "sort": request.params.get("sort"),
                     "workflow_signal": request.params.get("signal"),
                 }
             )
@@ -83,4 +93,4 @@ class IrHttp(models.AbstractModel):
 
     @classmethod
     def _monitoring_log(cls, info):
-        _logger.info(json.dumps(info))
+        _logger.info(json.dumps(info, ensure_ascii=False))
