@@ -51,6 +51,7 @@ class IrHttp(models.AbstractModel):
             "path": path,
             "content_type": request.httprequest.environ.get("CONTENT_TYPE"),
             "user_agent": request.httprequest.environ.get("HTTP_USER_AGENT"),
+            "remote_addr": request.httprequest.environ.get("REMOTE_ADDR"),
             # Odoo things
             "db": None,
             "uid": request.uid,
@@ -81,7 +82,7 @@ class IrHttp(models.AbstractModel):
                 {
                     "model": request.params.get("model"),
                     "model_method": request.params.get("method"),
-                    "args": str(request.params.get("args"))[:50] if request.params.get("args") else None,
+                    "args": str(request.params.get("args"))[:200] if request.params.get("args") else None,
                     "domain": request.params.get("domain"),
                     "fields": request.params.get("fields"),
                     "limit": request.params.get("limit"),
