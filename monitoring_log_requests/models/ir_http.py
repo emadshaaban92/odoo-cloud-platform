@@ -51,6 +51,7 @@ class IrHttp(models.AbstractModel):
             "path": path,
             "content_type": request.httprequest.environ.get("CONTENT_TYPE"),
             "user_agent": request.httprequest.environ.get("HTTP_USER_AGENT"),
+            "remote_addr": request.httprequest.environ.get("REMOTE_ADDR"),
             # Odoo things
             "db": None,
             "uid": request.uid,
